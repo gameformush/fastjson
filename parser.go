@@ -57,9 +57,9 @@ type cache struct {
 }
 
 type SkipMap struct {
-	skip      bool
-	subfields map[string]*SkipMap
-	subArray  []*SkipMap
+	Skip      bool
+	Subfields map[string]*SkipMap
+	SubArray  []*SkipMap
 }
 
 func (c *cache) reset() {
@@ -218,8 +218,8 @@ func parseArray(s string, c *cache, depth int, skip bool, skipMap *SkipMap) (*Va
 		s = skipWS(s)
 		var nextMap *SkipMap
 
-		if skipMap != nil && skipMap.subArray != nil && skipMap.subArray[i] != nil {
-			nextMap = skipMap.subArray[i]
+		if skipMap != nil && skipMap.SubArray != nil && skipMap.SubArray[i] != nil {
+			nextMap = skipMap.SubArray[i]
 		}
 
 		v, s, err = parseValue(s, c, depth, skip, nextMap)
@@ -294,11 +294,11 @@ func parseObject(s string, c *cache, depth int, skip bool, skipMap *SkipMap) (*V
 
 		var nextMap *SkipMap
 
-		if skipMap != nil && skipMap.subfields[key] != nil {
-			nextMap = skipMap.subfields[key]
+		if skipMap != nil && skipMap.Subfields[key] != nil {
+			nextMap = skipMap.Subfields[key]
 		}
 
-		if nextMap != nil && nextMap.skip {
+		if nextMap != nil && nextMap.Skip {
 			skipKey = true
 		}
 
